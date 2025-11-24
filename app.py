@@ -16,7 +16,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB limit
 
 # Google Drive model config
 MODEL_URL = "https://drive.google.com/uc?export=download&id=1lSU56GjhA-s1ypk_74MqDOW28iMDU8yw"
-MODEL_PATH = "lung_disease_model(latest).keras"
+MODEL_PATH = "lung_model.keras"
 
 # Corrected class names (from notebook class_indices)
 CLASS_NAMES = ['NORMAL', 'PNEUMONIA', 'TUBERCULOSIS']

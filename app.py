@@ -1,5 +1,6 @@
 import os
 import gdown
+import keras 
 from flask import Flask, request, jsonify, render_template
 from werkzeug.utils import secure_filename
 import tensorflow as tf
@@ -61,15 +62,25 @@ def download_model_if_needed():
 
 
 def get_model():
-    """Lazy-load the model (download + load only once)."""
     global model
-    if model is None:
-        download_model_if_needed()
-        print("Loading model from disk...")
-        # If you get warnings about custom objects / compile, you can add: compile=False
-        model = tf.keras.models.load_model(MODEL_PATH)
+    if model is not None:
+        return model
+
+    download_model_if_needed()
+
+    print("Loading model from disk...")
+    try:
+        loaded = keras.models.load_model(
+            MODEL_PATH,
+            compile=False,
+            safe_mode=False
+        )
         print("Model loaded successfully.")
-    return model
+        model = loaded
+        return model
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        raise RuntimeError(f"Error loading model from {MODEL_PATH}: {e}")
 
 
 @app.route('/')

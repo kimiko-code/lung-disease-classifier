@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lung Disease Classifier</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- LEFT SECTION -->
+        <div class="form-section">
+            <h1>🩺 Lung Disease Classifier</h1>
+            <p>Upload a chest X-ray image and let AI predict abnormalities.</p>
+
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div>
+                    <input type="file" id="fileInput" accept="image/*" required>
+                </div>
+                <br>
+                <button type="submit">🔍 Classify Image</button>
+            </form>
+
+            <div id="loading" class="loading-spinner"></div>
+            <div id="error" class="error-text"></div>
+
+            <div id="results" class="results">
+                <h2>Diagnosis Result</h2>
+                <p><strong>Prediction:</strong> <span class="badge" id="prediction"></span></p>
+                <p><strong>Confidence:</strong> <span id="confidence"></span>%</p>
+
+                <h3>Class Probabilities:</h3>
+                <ul id="probabilitiesList"></ul>
+            </div>
+        </div>
+
+        <!-- RIGHT SECTION -->
+        <div class="preview-section">
+            <h3>Image Preview</h3>
+            <img id="imagePreview" src="#" alt="Image Preview">
+        </div>
+    </div>
+
+    <!-- Our JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

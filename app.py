@@ -1,4 +1,5 @@
 import os
+import gdown
 from flask import Flask, request, jsonify, render_template
 from werkzeug.utils import secure_filename
 import tensorflow as tf
@@ -52,16 +53,11 @@ def download_model_if_needed():
 
     print("Model file not found locally. Downloading from Google Drive...")
     try:
-        response = requests.get(MODEL_URL, stream=True)
-        response.raise_for_status()
-        with open(MODEL_PATH, "wb") as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                if chunk:
-                    f.write(chunk)
+        gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
         print("Model downloaded successfully.")
     except Exception as e:
         print(f"Error downloading model: {e}")
-        raise
+        raise RuntimeError(f"Failed to download model: {e}")
 
 
 def get_model():
